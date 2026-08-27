@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lisas Schnittmuster</title>
+<style>
+/* Creme, Altrosa, Bordeaux - passend zur eigenen Ansicht.
+   Schriften hier über System-Fallback, damit die eine Datei allein läuft. */
+:root{
+  --creme:#fff4f7; --creme-2:#ffe8ee; --karte:#fffafb; --karte-2:#fff0f4;
+  --altrosa:#f7b5c6; --altrosa-sanft:#ffdfe8; --rose:#ef7fa2; --rose-tief:#dd5c86;
+  --bordeaux:#a63459; --text:#40242e; --text-leise:#96707e; --rand:#fbd3de;
+  --gruen:#6fa287; --warn:#d97a52; --flieder:#a98bc9;
+  --schatten-s:0 2px 8px rgba(166,52,89,.07);
+  --schatten-m:0 6px 20px rgba(166,52,89,.11);
+  --schatten-l:0 16px 44px rgba(166,52,89,.17);
+  --radius-m:18px; --radius-l:24px; --radius-xl:32px;
+  --font-script:'Segoe Script','Bradley Hand','Brush Script MT',cursive;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-thema='hell']){
+    --creme:#1b1216; --creme-2:#24181d; --karte:#2b1d23; --karte-2:#33222a;
+    --altrosa:#5c3040; --altrosa-sanft:#3c2530; --rose:#ef8fad; --rose-tief:#f7aac2;
+    --bordeaux:#f9c8d8; --text:#f9ebef; --text-leise:#c19aa8; --rand:#432b35;
+    --gruen:#8bbba2; --warn:#e0a173; --flieder:#c4aee0;
+    --schatten-s:0 2px 8px rgba(0,0,0,.3);
+    --schatten-m:0 6px 20px rgba(0,0,0,.38);
+    --schatten-l:0 16px 44px rgba(0,0,0,.5);
+    color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--creme);color:var(--text);
+  font:400 15px/1.6 var(--font-body);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+h1,h2{font-family:var(--font-script);color:var(--bordeaux);margin:0;line-height:1.1}
+
+header{position:sticky;top:0;z-index:30;padding:12px 22px;
+  background:linear-gradient(180deg,var(--creme-2),var(--creme));
+  border-bottom:1px solid var(--rand)}
+.kopfzeile{display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+  max-width:1420px;margin:0 auto}
+.logo{font-family:var(--font-script);font-size:2rem;font-weight:700;
+  color:var(--bordeaux);line-height:1;white-space:nowrap;
+  display:flex;align-items:center;gap:10px}
+.katze-logo{width:34px;height:29px;flex:none;color:var(--rose)}
+.katze-sitzt{width:110px;color:var(--rose);opacity:.65;margin:0 auto 14px;display:block}
+.logo small{font-family:var(--font-body);font-size:.72rem;font-weight:600;
+  color:var(--text-leise);display:block;margin-top:1px}
+.suchfeld{flex:1;min-width:240px;position:relative}
+.suchfeld input{width:100%;padding:11px 16px 11px 42px;border:1px solid var(--rand);
+  border-radius:var(--radius-xl);background:var(--karte);outline:none;
+  box-shadow:var(--schatten-s)}
+.suchfeld input:focus{border-color:var(--rose);box-shadow:var(--schatten-m)}
+.suchfeld::before{content:'🔍';position:absolute;left:15px;top:50%;
+  transform:translateY(-50%);font-size:.95rem;opacity:.6;pointer-events:none}
+.verstanden{max-width:1420px;margin:9px auto 0;display:flex;gap:7px;
+  flex-wrap:wrap;font-size:.82rem;align-items:center}
+.verstanden b{font-weight:700;color:var(--text-leise)}
+
+.rumpf{display:grid;grid-template-columns:220px 1fr;gap:28px;
+  max-width:1420px;margin:0 auto;padding:22px}
+@media(max-width:860px){.rumpf{grid-template-columns:1fr}
+  aside{position:static!important;max-height:none!important}}
+aside{position:sticky;top:90px;align-self:start;max-height:calc(100vh - 110px);
+  overflow-y:auto;padding-right:8px}
+.gruppe{margin-bottom:17px}
+.gruppe>h3{font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--rose-tief);margin:0 0 8px;font-weight:800}
+.opt{display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer;font-size:.86rem}
+.opt:hover{color:var(--bordeaux)}
+.opt input{accent-color:var(--rose);margin:0;flex:none;width:15px;height:15px}
+.opt .z{margin-left:auto;color:var(--text-leise);font-size:.72rem}
+.mehr{background:none;border:none;color:var(--rose-tief);cursor:pointer;
+  font-size:.78rem;font-weight:600;text-decoration:underline;padding:4px 0}
+
+.willkommen{background:var(--karte);border:1px solid var(--rand);
+  border-radius:var(--radius-l);padding:17px 20px;font-size:.88rem;
+  margin-bottom:18px;line-height:1.65;box-shadow:var(--schatten-s)}
+.willkommen b{font-weight:800;color:var(--bordeaux)}
+.willkommen .emoji{font-size:1.2rem;margin-right:6px}
+.treffer{font-size:.9rem;color:var(--text-leise);margin-bottom:15px}
+.treffer b{color:var(--bordeaux);font-weight:800}
+
+.gitter{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.karte{position:relative;background:var(--karte);border:1px solid var(--rand);
+  border-radius:var(--radius-l);padding:16px 18px;box-shadow:var(--schatten-s);
+  transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+.karte:hover{transform:translateY(-4px);box-shadow:var(--schatten-m)}
+.karte h4{margin:0 0 4px;font-size:.98rem;font-weight:700;line-height:1.3}
+.pfadzeile{font-size:.72rem;color:var(--text-leise);margin-bottom:9px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.chip{font-size:.68rem;padding:3px 9px;border-radius:var(--radius-xl);
+  background:var(--altrosa-sanft);color:var(--bordeaux);font-weight:600}
+.band{display:inline-block;font-size:.66rem;font-weight:700;padding:3px 9px;
+  border-radius:var(--radius-xl);margin-bottom:7px}
+.band.papier{background:var(--flieder);color:#fff}
+.band.wunsch{background:var(--warn);color:#fff}
+.erfahrung{margin-top:11px;padding-top:10px;border-top:1px solid var(--rand);
+  font-size:.8rem;line-height:1.55}
+.erfahrung .gut{color:var(--gruen);font-weight:700}
+.stoffzeile{font-size:.72rem;color:var(--text-leise);margin-top:7px;font-style:italic}
+.fuss{display:flex;gap:8px;font-size:.72rem;color:var(--text-leise);
+  margin-top:auto;padding-top:10px;flex-wrap:wrap;align-items:center}
+.fuss a{color:var(--rose-tief);font-weight:700;text-decoration:none}
+.fuss a:hover{text-decoration:underline}
+.leerzustand{text-align:center;padding:64px 24px;color:var(--text-leise);grid-column:1/-1}
+.leerzustand .gross{font-size:3rem;display:block;margin-bottom:12px;opacity:.75}
+.leerzustand h3{font-family:var(--font-script);font-size:1.6rem;color:var(--bordeaux);margin:0 0 6px}
+</style>
+</head>
+<body>
+<header>
+  <div class="kopfzeile">
+    <div class="logo"><span id="logoKatze"></span>
+      <span>Lisas Schnittmuster<small id="gesamt"></small></span></div>
+    <div class="suchfeld">
+      <input id="suche" type="search" autocomplete="off"
+             placeholder="Kleid mit Puffärmeln, Jersey, oversize …">
+    </div>
+  </div>
+  <div class="verstanden" id="verstanden"></div>
+</header>
+<div class="rumpf">
+  <aside id="filter"></aside>
+  <main>
+    <div class="willkommen">
+      <span class="emoji">🐈</span><b>Das ist ein Katalog, keine Schnittmuster zum Herunterladen.</b>
+      Hier stehen nur Namen, Merkmale und meine Erfahrungen – die Schnittmuster selbst
+      sind nicht enthalten und dürfen es aus Urheberrechtsgründen auch nicht sein.
+      Wenn dir etwas gefällt: beim jeweiligen Designer kaufen. Wo ich den Link habe,
+      steht er bei der Karte.
+    </div>
+    <div class="treffer" id="treffer"></div>
+    <div class="gitter" id="gitter"></div>
+  </main>
+</div>
+<script>
+const SCHNITTE = /*HIER_DATEN*/;
+
+const KATZE_KOPF = `<svg class="katze-logo" viewBox="0 0 40 34" fill="none"
+  stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M8 14 L6 4 L15 9"/><path d="M32 14 L34 4 L25 9"/>
+  <path d="M6 16c0-6 6-9 14-9s14 3 14 9c0 8-6 12-14 12S6 24 6 16z"/>
+  <circle cx="14.5" cy="16" r="1.6" fill="currentColor" stroke="none"/>
+  <circle cx="25.5" cy="16" r="1.6" fill="currentColor" stroke="none"/>
+  <path d="M20 20.5v1.5"/><path d="M17.5 23.5c1.5 1.2 3.5 1.2 5 0"/>
+</svg>`;
+const KATZE_SITZT = `<svg class="katze-sitzt" viewBox="0 0 100 110" fill="none"
+  stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M26 34 L22 12 L40 23"/><path d="M62 23 L80 12 L76 34"/>
+  <path d="M22 38c0-13 12-20 27-20s27 7 27 20c0 15-12 22-27 22S22 53 22 38z"/>
+  <circle cx="38" cy="38" r="2.4" fill="currentColor" stroke="none"/>
+  <circle cx="60" cy="38" r="2.4" fill="currentColor" stroke="none"/>
+  <path d="M49 45v3"/><path d="M44 51c3 2.4 7 2.4 10 0"/>
+  <path d="M20 40h-9M20 46h-9M79 40h9M79 46h9" opacity=".5"/>
+  <path d="M30 60c-4 10-5 22-3 34h44c2-12 1-24-3-34"/>
+  <path d="M73 94c11-2 17-9 15-18-1-6-6-8-9-4"/>
+</svg>`;
+
+const LEX = {
+  teilart:["T-Shirt","Top","Bluse","Pullover","Kleid","Rock","Hose","Jacke","Overall",
+           "Body","Unterwäsche","Bademode","Tasche","Mütze/Accessoire","Kuscheltier"],
+  aermel:["Puffärmel","Ballonärmel","Raglanärmel","Fledermausärmel","Volantärmel",
+          "Kimono/angeschnitten","Trompetenärmel","Ärmellos","Langarm","Kurzarm","3/4-Arm"],
+  ausschnitt:["V-Ausschnitt","Rundhals","Karree","Wasserfall","Rollkragen",
+              "Herzausschnitt","U-Boot","Kapuze"],
+  passform:["Oversize","Tailliert","Antifit","Weit/A-Linie","Mitwachsend"],
+  details:["Raffung","Twist/Knoten","Wickeloptik","Volants","Knopfleiste","Reißverschluss",
+           "Taschen","Tunnelzug","Bündchen","Gefüttert","Colourblocking","Rückenausschnitt"],
+  stoff:["Jersey","Sweat","Walk","Musselin","Leinen","Webware","Softshell","Fleece","Viskose"]
+};
+const TITEL = {teilart:"Was",aermel:"Ärmel",ausschnitt:"Ausschnitt",passform:"Passform",
+               details:"Details",stoff:"Stoff",kategorie:"Kategorie",designer:"Designer",
+               bestand:"Bestand"};
+const BESTAND = {digital:{name:"Hat sie",emoji:"✅"},
+                 papier:{name:"Hat sie (Papier)",emoji:"📄"},
+                 wunsch:{name:"Wunschliste",emoji:"💛"}};
+
+const SYNONYM = {
+  "puffärmel":["aermel","Puffärmel"],"puff":["aermel","Puffärmel"],"raglan":["aermel","Raglanärmel"],
+  "fledermaus":["aermel","Fledermausärmel"],"kimono":["aermel","Kimono/angeschnitten"],
+  "ärmellos":["aermel","Ärmellos"],"langarm":["aermel","Langarm"],"kurzarm":["aermel","Kurzarm"],
+  "volantärmel":["aermel","Volantärmel"],"ballonärmel":["aermel","Ballonärmel"],
+  "trompetenaermel":["aermel","Trompetenärmel"],"dreiviertelarm":["aermel","3/4-Arm"],
+  "v-ausschnitt":["ausschnitt","V-Ausschnitt"],"vausschnitt":["ausschnitt","V-Ausschnitt"],
+  "rundhals":["ausschnitt","Rundhals"],"karree":["ausschnitt","Karree"],
+  "wasserfall":["ausschnitt","Wasserfall"],"rollkragen":["ausschnitt","Rollkragen"],
+  "kapuze":["ausschnitt","Kapuze"],"herzausschnitt":["ausschnitt","Herzausschnitt"],
+  "carmen":["ausschnitt","U-Boot"],"schulterfrei":["ausschnitt","U-Boot"],
+  "oversize":["passform","Oversize"],"tailliert":["passform","Tailliert"],
+  "antifit":["passform","Antifit"],"mitwachsend":["passform","Mitwachsend"],
+  "alinie":["passform","Weit/A-Linie"],"trapez":["passform","Weit/A-Linie"],
+  "raffung":["details","Raffung"],"gerafft":["details","Raffung"],
+  "wickel":["details","Wickeloptik"],"volants":["details","Volants"],
+  "rüschen":["details","Volants"],"knoten":["details","Twist/Knoten"],
+  "reissverschluss":["details","Reißverschluss"],"zipper":["details","Reißverschluss"],
+  "knopfleiste":["details","Knopfleiste"],"knöpfe":["details","Knopfleiste"],
+  "knoepfe":["details","Knopfleiste"],"tunnelzug":["details","Tunnelzug"],
+  "kordelzug":["details","Tunnelzug"],"buendchen":["details","Bündchen"],
+  "gefuettert":["details","Gefüttert"],"colorblock":["details","Colourblocking"],
+  "rueckenausschnitt":["details","Rückenausschnitt"],
+  "jersey":["stoff","Jersey"],"sweat":["stoff","Sweat"],"walk":["stoff","Walk"],
+  "musselin":["stoff","Musselin"],"leinen":["stoff","Leinen"],"fleece":["stoff","Fleece"],
+  "softshell":["stoff","Softshell"],"webware":["stoff","Webware"],"viskose":["stoff","Viskose"],
+  "frottee":["stoff","Fleece"],"canvas":["stoff","Webware"],
+  "t-shirt":["teilart","T-Shirt"],"shirt":["teilart","T-Shirt"],"tshirt":["teilart","T-Shirt"],
+  "top":["teilart","Top"],"bluse":["teilart","Bluse"],"pulli":["teilart","Pullover"],
+  "pullover":["teilart","Pullover"],"hoodie":["teilart","Pullover"],"kleid":["teilart","Kleid"],
+  "rock":["teilart","Rock"],"hose":["teilart","Hose"],"jacke":["teilart","Jacke"],
+  "overall":["teilart","Overall"],"jumpsuit":["teilart","Overall"],"tasche":["teilart","Tasche"],
+  "body":["teilart","Body"],"bodysuit":["teilart","Body"],"bralette":["teilart","Unterwäsche"],
+  "badeanzug":["teilart","Bademode"],"bikini":["teilart","Bademode"],
+  "mütze":["teilart","Mütze/Accessoire"],"beanie":["teilart","Mütze/Accessoire"],
+  "damen":["kategorie","Damen"],"herren":["kategorie","Herren"],"kinder":["kategorie","Kinder"],
+  "baby":["kategorie","Babys"],"babys":["kategorie","Babys"],
+  "wunsch":["bestand","wunsch"],"wunschliste":["bestand","wunsch"],"papier":["bestand","papier"]
+};
+const FUELL = new Set(["mit","und","für","in","der","die","das","ein","eine","aus","als","zum","von"]);
+
+function ohneUmlaut(s){
+  return s.replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue")
+          .replace(/ß/g,"ss").replace(/é|è|ê/g,"e");
+}
+const SYNONYM_NORM = {};
+for (const [k,v] of Object.entries(SYNONYM)) SYNONYM_NORM[ohneUmlaut(k)] = v;
+function nachschlagen(w){
+  const n = ohneUmlaut(w);
+  return SYNONYM[w] || SYNONYM_NORM[n]
+      || SYNONYM_NORM[n.replace(/aermeln$/,"aermel")]
+      || SYNONYM_NORM[n.replace(/n$/,"")];
+}
+
+let filter = {}, suchtext = "";
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,
+  c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function auswerten(text){
+  let t = ohneUmlaut(" " + text.toLowerCase().replace(/[,.]/g," ") + " ");
+  const erkannt = [];
+  for (const k of Object.keys(SYNONYM_NORM).filter(k=>/[- ]/.test(k))
+                        .sort((a,b)=>b.length-a.length)){
+    if (t.includes(" "+k+" ")){ erkannt.push(SYNONYM_NORM[k]); t = t.split(" "+k+" ").join(" "); }
+  }
+  const rest = [];
+  for (const w of t.replace(/[-_]/g," ").split(/\s+/).filter(Boolean)){
+    if (FUELL.has(w) || w.length < 2) continue;
+    const tr = nachschlagen(w);
+    if (tr) erkannt.push(tr); else rest.push(w);
+  }
+  const seen = new Set();
+  return {erkannt: erkannt.filter(([f,w])=>!seen.has(f+w) && seen.add(f+w)), rest};
+}
+
+function passt(e){
+  for (const [feld,werte] of Object.entries(filter)){
+    if (!werte.size) continue;
+    const v = e[feld];
+    const hat = Array.isArray(v) ? v.some(x=>werte.has(x))
+              : werte.has(v)
+                || (feld==="freebook" && werte.has(v?"ja":"nein"))
+                || (feld==="genaeht" && werte.has(true) && v===true);
+    if (!hat) return false;
+  }
+  if (!suchtext.trim()) return true;
+  const {erkannt,rest} = auswerten(suchtext);
+  for (const [feld,wert] of erkannt){
+    const v = e[feld];
+    if (!(Array.isArray(v) ? v.includes(wert) : v===wert)) return false;
+  }
+  if (rest.length){
+    const heu = ohneUmlaut((e.titel+" "+e.designer+" "+e.notizen+" "+e.unterkategorie+" "+
+                 (e.stoffart||"")+" "+(e.teilart||[]).join(" ")).toLowerCase());
+    if (!rest.every(w=>heu.includes(w))) return false;
+  }
+  return true;
+}
+
+function karte(e){
+  const merkmale = [...(e.teilart||[]),...(e.aermel||[]),...(e.ausschnitt||[]),
+                    ...(e.passform||[]),...(e.details||[]),...(e.stoff||[])].slice(0,6);
+  let band = "";
+  if (e.bestand === "wunsch")      band = '<span class="band wunsch">💛 auf ihrer Wunschliste</span>';
+  else if (e.bestand === "papier") band = '<span class="band papier">📄 als Papierschnitt</span>';
+
+  let erf = "";
+  if (e.genaeht || e.bewertung || e.anpassungen || e.notizen){
+    const teile = [];
+    if (e.genaeht) teile.push(`<span class="gut">🪡 Schon genäht${e.anzahlGenaeht>1?" ("+e.anzahlGenaeht+"×)":""}${e.meineGroesse?" in Gr. "+esc(e.meineGroesse):""}</span>`);
+    if (e.bewertung) teile.push("🐾".repeat(e.bewertung));
+    if (e.anpassungen) teile.push("Angepasst: " + esc(e.anpassungen));
+    if (e.notizen) teile.push(esc(e.notizen));
+    erf = `<div class="erfahrung">${teile.join("<br>")}</div>`;
+  }
+  return `<article class="karte">
+    ${band}
+    <h4>${esc(e.titel)}</h4>
+    <div class="pfadzeile">${esc(e.kategorie)}${e.unterkategorie?" › "+esc(e.unterkategorie):""}</div>
+    ${merkmale.length?`<div class="chips">${merkmale.map(m=>`<span class="chip">${esc(m)}</span>`).join("")}</div>`:""}
+    ${e.stoffart?`<div class="stoffzeile">${esc(e.stoffart)}${e.stoffverbrauch?" · "+esc(e.stoffverbrauch):""}</div>`:""}
+    ${erf}
+    <div class="fuss">
+      ${e.designer?`<span>${esc(e.designer)}</span>`:""}
+      ${e.groessen?`<span>Gr. ${esc(e.groessen)}</span>`:""}
+      ${e.schwierigkeit?`<span>${esc(e.schwierigkeit)}</span>`:""}
+      ${e.freebook?`<span>gratis</span>`:""}
+      ${e.shopLink?`<a href="${esc(e.shopLink)}" target="_blank" rel="noopener">zum Shop →</a>`:""}
+    </div></article>`;
+}
+
+function filterBauen(liste){
+  let html = "";
+  for (const feld of ["bestand","kategorie","teilart","aermel","ausschnitt","passform",
+                      "details","stoff","designer"]){
+    const z = {};
+    for (const e of SCHNITTE){ const v=e[feld];
+      for (const w of (Array.isArray(v)?v:(v?[v]:[]))) z[w]=0; }
+    for (const e of liste){ const v=e[feld];
+      for (const w of (Array.isArray(v)?v:(v?[v]:[]))) z[w]=(z[w]||0)+1; }
+    let werte = Object.entries(z).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],"de"));
+    if (feld==="designer") werte = werte.filter(w=>w[1]>0).slice(0,12);
+    if (!werte.length) continue;
+    const gew = filter[feld] || new Set();
+    const grenze = (feld==="kategorie"||feld==="bestand") ? 99 : 7;
+    html += `<div class="gruppe"><h3>${TITEL[feld]||feld}</h3>` +
+      werte.map(([w,n],i)=>{
+        const b = feld==="bestand" && BESTAND[w] ? BESTAND[w].emoji+" "+BESTAND[w].name : w;
+        return `<label class="opt" ${i>=grenze?'data-extra="'+feld+'" hidden':''}>
+          <input type="checkbox" data-feld="${feld}" value="${esc(w)}" ${gew.has(w)?"checked":""}>
+          <span>${esc(b)}</span><span class="z">${n}</span></label>`;
+      }).join("") +
+      (werte.length>grenze?`<button class="mehr" data-auf="${feld}">${werte.length-grenze} weitere …</button>`:"") +
+      `</div>`;
+  }
+  html += `<div class="gruppe"><h3>Status</h3>
+    <label class="opt"><input type="checkbox" data-feld="genaeht" value="true"
+      ${(filter.genaeht||new Set()).has(true)?"checked":""}>
+      <span>🪡 Schon genäht</span><span class="z">${liste.filter(e=>e.genaeht).length}</span></label>
+    <label class="opt"><input type="checkbox" data-feld="freebook" value="ja"
+      ${(filter.freebook||new Set()).has("ja")?"checked":""}>
+      <span>Gratis-Schnitt</span><span class="z">${liste.filter(e=>e.freebook).length}</span></label></div>`;
+  $("#filter").innerHTML = html;
+}
+
+function zeigen(){
+  const liste = SCHNITTE.filter(passt).sort((a,b)=>a.titel.localeCompare(b.titel,"de"));
+  $("#treffer").innerHTML = `<b>${liste.length}</b> von ${SCHNITTE.length} Schnitten`;
+  const vb = $("#verstanden");
+  if (suchtext.trim()){
+    const {erkannt} = auswerten(suchtext);
+    vb.innerHTML = erkannt.length ? "<b>Verstanden als:</b>" +
+      erkannt.map(([f,w])=>`<span class="chip">${TITEL[f]||f}: ${esc(BESTAND[w]?BESTAND[w].name:w)}</span>`).join("") : "";
+  } else vb.innerHTML = "";
+  $("#gitter").innerHTML = liste.length
+    ? liste.slice(0,400).map(karte).join("") +
+      (liste.length>400?`<div class="leerzustand">… ${liste.length-400} weitere. Grenz die Suche weiter ein.</div>`:"")
+    : `<div class="leerzustand">${KATZE_SITZT}<h3>Nichts gefunden</h3>
+        <p>Vielleicht ist das Merkmal bei diesen Schnitten noch nicht eingetragen.</p></div>`;
+  filterBauen(liste);
+}
+
+$("#suche").addEventListener("input", ev => { suchtext = ev.target.value; zeigen(); });
+$("#filter").addEventListener("change", ev => {
+  const el = ev.target; if (!el.dataset.feld) return;
+  const feld = el.dataset.feld;
+  let wert = el.value; if (feld==="genaeht") wert = true;
+  filter[feld] = filter[feld] || new Set();
+  el.checked ? filter[feld].add(wert) : filter[feld].delete(wert);
+  zeigen();
+});
+$("#filter").addEventListener("click", ev => {
+  const b = ev.target.closest("[data-auf]"); if (!b) return;
+  document.querySelectorAll(`[data-extra="${b.dataset.auf}"]`).forEach(el=>el.hidden=false);
+  b.remove();
+});
+$("#logoKatze").innerHTML = KATZE_KOPF;
+$("#gesamt").textContent = SCHNITTE.length + " Schnitte";
+zeigen();
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+Zuordnungen aus den Excel-Uebersichten, die du kurz pruefen solltest.
+Diese Schnitte tragen in der Seite den Hinweis 'aus Uebersicht'.
+
+--- unsicher zugeordnet: Groesse/Stoff/Bild koennten am falschen Schnitt haengen ---
+  0.78  [Tops] Tied shoulders tank top
+           -> Tank Top
+  0.80  [Kleider] Idra Dess
+           -> Idra Dress
+  0.80  [Kleider] Lana Hoodiekleid
+           -> lana hoodie kleid xxs xxxl ebook
+  0.80  [Pullis] Pully Caby
+           -> pulli caby naehanleitung schnitt made-by oranges
+  0.80  [Tops] Racer Top Ella
+           -> racertop ella
+  0.85  [Kleider] Boheme Kleid Nele
+           -> bohemian kleid nele-gr-34-50
+  0.85  [Kleider] Giana Tie Dress
+           -> Classic Tie Belt Dress
+  0.85  [Pullis] Minerve
+           -> minerva peplum top-32-54 schnittgefluester
+  0.85  [T-Shirts] T-Shirt Eva im KimonoStyle
+           -> 2000017-T-Shirt Eva Schnittmuster
+  0.85  [T-Shirts] Olea Umstands Shirt
+           -> Olea Maternity Shirt
+  0.85  [T-Shirts] Zero waste Shirt
+           -> Zero Wate Shirt
+
+--- gar nicht zugeordnet: im Katalog nicht gefunden ---
+  [Badeanzug Unterwäsche] Basic Swimwear
+  [Badeanzug Unterwäsche] Costa Rica
+  [Badeanzug Unterwäsche] Body
+  [Badeanzug Unterwäsche] Unterwäsche
+  [Badeanzug Unterwäsche] Unterwäsche
+  [Blusen] Bluse Penny
+  [Blusen] Bluse Mini&Me
+  [Blusen] Blusenshirt
+  [Kleider] Dress Sun
+  [Kleider] Heartclover-Kleid
+  [Kleider] Hoodie Dress
+  [Kleider] Viktoria Wide belt dress
+  [Kleider] Korsettkleid
+  [Kleider] Jersey Dress
+  [Kleider] Aurora Kleid
+  [Kleider] T-Shirt Kleid
+  [Kleider] fffffffffffffffffffffffff
+  [Kleider] Schneeweißchen & Rosenrot
+  [Pullis] Basic Shirt
+  [Pullis] Cozy Troyer
+  [Pullis] Musselin Hoodie Sweater
+  [Pullis] Oversize Hoodie
+  [Pullis] Lieblingsshirt
+  [T-Shirts] Basic Shirt mit Raffung
+  [T-Shirts] Basic Shirt
+  [T-Shirts] hearsclover Shirt & Dress
+  [T-Shirts] Summer Set
+  [T-Shirts] Puffärmelshirt
+  [T-Shirts] Basic Shirt
+  [T-Shirts] Tunika mit Raglanärmeln
+  [Tops] Cope Top
+  [Tops] Summer Set
+  [Tops] Top mit Raffung
+  [Tops] Jersey Top basic
